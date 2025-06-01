@@ -10,13 +10,14 @@ int main(){
 
     Plate plate = initPlate();
 
-    clearAndInitFile("test.txt");
-    writePlateTemp(plate, "test.txt");
+    clearAndInitFile("initial_plate.txt");
+    clearAndInitFile("solution.txt");
+    writePlateTemp(plate, "initial_plate.txt");
 
     PlateSolver solver(plate);
 
     solver.simulate(25);
-    writePlateTemp(plate, "test.txt");
+    writePlateTemp(plate, "solution.txt");
 
 
 }

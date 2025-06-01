@@ -12,4 +12,4 @@ inline constexpr float INITIAL_TEMP = 0;
 inline constexpr float RIGHT_BORDER_TEMP = 200.0; // включая округлую границу
 inline constexpr float LEFT_BORDER_TEMP = 50.0;
 inline constexpr float UPPER_BORDER_TEMP = 200.0;
-inline constexpr float ALPHA = 1;
+inline constexpr float ALPHA = 1; // коэффициент теплопроводности
