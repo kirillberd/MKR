@@ -15,12 +15,18 @@ PlateSolver::PlateSolver(Plate &plate_) : plate(plate_)
     size = height * width;
 
 
-    currentTemp.resize(size, 0.0f);
-    previousTemp.resize(size, 0.0f);
+    currentTemp.resize(size, 0.0);
+    previousTemp.resize(size, 0.0);
     initMatrix();
     initTempVector();
     previousTemp = currentTemp;
 }
+
+// T00, T01, T02
+// T10, T11, T12  
+// T20, T21, T22
+
+// [T00, T01, T02, T10, T11, T12, T20, T21, T22]
 
 void PlateSolver::initMatrix()
 {
@@ -54,9 +60,13 @@ void PlateSolver::initMatrix()
                 
             }
             else if (bc == BorderCondition::SECOND) {
-                // ГУ второго рода - градиент температуры = 0 (теплоизоляция)
+                // ГУ второго рода (теплоизоляция)
                 coeffMatrix[currentIndex][currentIndex] = 1.0 / GRID_STEP;
-                
+
+
+                // (Тгр - Твн)/dx = 0
+
+                // 1/dx * Тгр - 1/dx* Твн 
                 // Определяем направление в зависимости от положения
                 if (i == 0) {
                     // Нижняя граница
@@ -118,12 +128,12 @@ void PlateSolver::initMatrix()
                 
                 // Центральный коэффициент с учетом мю
                 coeffMatrix[currentIndex][currentIndex] = 
-                    (ALPHA * (1.0f + muX) / (GRID_STEP * GRID_STEP)) +  // по x
-                    (ALPHA * (1.0f + muY) / (GRID_STEP * GRID_STEP)) +  // по y
-                    (1.0f / TIME_STEP);                                 // временная производная
+                    (ALPHA * (1.0 + muX) / (GRID_STEP * GRID_STEP)) +  // по x
+                    (ALPHA * (1.0 + muY) / (GRID_STEP * GRID_STEP)) +  // по y
+                    (1.0 / TIME_STEP);                                 // временная производная
             }
             else {
-                coeffMatrix[currentIndex][currentIndex] = 1.0f;
+                coeffMatrix[currentIndex][currentIndex] = 1.0;
             }
         }
     }
@@ -241,7 +251,7 @@ void PlateSolver::solveGauss()
     
     vector<vector<float>> A = coeffMatrix;
     vector<float> b = currentTemp;
-    vector<float> solution(size, 0.0f);
+    vector<float> solution(size, 0.0);
     
     // Прямой ход
     for (int j = 0; j < size - 1; j++)

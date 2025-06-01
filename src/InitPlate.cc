@@ -79,7 +79,7 @@ void RoundCheckNodes(vector<Node *> nodes, Plate &plate)
 
             if (hasNeighborInside)
             {
-                float mu_x = 1.0f, mu_y = 1.0f;
+                float mu_x = 1.0, mu_y = 1.0;
 
                 if (hasLeftNeighbor)
                 {
