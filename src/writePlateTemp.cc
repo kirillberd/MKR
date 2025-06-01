@@ -1,11 +1,10 @@
 #include <fstream>
 #include <iomanip>
 #include <iostream>
-#include "writePlateTemp.h"
+#include "WritePlateTemp.h"
 
 
-void writePlateTemp(const Plate& plate, const string& filename, 
-                             int iteration) {
+void writePlateTemp(const Plate& plate, const string& filename) {
     ofstream file(filename, ios::app);
     
     if (!file.is_open()) {
@@ -13,14 +12,12 @@ void writePlateTemp(const Plate& plate, const string& filename,
         return;
     }
     
-    file << "\n# Итерация: " << iteration;
-    file << "\n";
     
     file << fixed << setprecision(2);
     
     for (int i = plate.size() - 1; i >= 0; i--) {
         for (int j = 0; j < plate[i].size(); j++) {
-            file << setw(8) << plate[i][j].getTemp();
+            file << plate[i][j].getTemp() << " ";
         }
         file << "\n";
     }

@@ -163,6 +163,7 @@ Plate initPlate()
                 GRID_STEP);
         }
     }
+    // обработка скругления
     RoundCheckNodes(getNodesForRoundCheck(plate), plate);
 
     return plate;

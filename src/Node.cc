@@ -43,16 +43,20 @@ float Node::getMuX() const
 {
     return muX;
 }
+float Node::getMuY() const
+{
+    return muY;
+}
 
 void Node::setMux(float mux)
 {
     this->muX = mux;
 }
 
-void Node::setBorderCondition(BorderCondition bc){
+void Node::setBorderCondition(BorderCondition bc)
+{
     borderCondition = bc;
 }
-
 
 void Node::setMuY(float muy)
 {
