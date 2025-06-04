@@ -1,6 +1,6 @@
 #include "Plate.h"
 #include "Node.h"
-#include "initPlate.h"
+#include "InitPlate.h"
 #include "WritePlateTemp.h"
 #include "PlateSolver.h"
 #include "Constants.h"
