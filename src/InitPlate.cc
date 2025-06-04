@@ -1,7 +1,7 @@
 #include "Node.h"
 #include <vector>
 #include "Constants.h"
-#include "initPlate.h"
+#include "InitPlate.h"
 #include <algorithm>
 #include <iostream>
 #include <cmath>
@@ -150,6 +150,12 @@ Plate initPlate()
             else if(j == 0){
                 bc = BorderCondition::FIRST;
                 temp = LEFT_BORDER_TEMP;
+            }
+
+            if(i == height - 1 && j == 2)
+            {
+                bc = BorderCondition::THIRD;
+                temp = INITIAL_TEMP;
             }
 
             plate[i][j] = Node(

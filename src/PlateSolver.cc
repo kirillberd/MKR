@@ -138,6 +138,35 @@ void PlateSolver::initMatrix()
                     (ALPHA * (1.0 + muY) / (GRID_STEP * GRID_STEP)) + // по y
                     (1.0 / TIME_STEP);                                // временная производная
             }
+            else if (bc == BorderCondition::THIRD)
+            {
+
+                coeffMatrix[currentIndex][currentIndex] = -(1.0f + GRID_STEP);
+
+                int internalIndex = -1;
+
+                if (i == 0)
+                {
+                    internalIndex = (i + 1) * width + j;
+                }
+                else if (i == height - 1)
+                {
+                    internalIndex = (i - 1) * width + j;
+                }
+                else if (j == 0)
+                {
+                    internalIndex = i * width + (j + 1);
+                }
+                else if (j == width - 1)
+                {
+                    internalIndex = i * width + (j - 1);
+                }
+
+                if (internalIndex >= 0 && internalIndex < size)
+                {
+                    coeffMatrix[currentIndex][internalIndex] = 1.0f;
+                }
+            }
             else
             {
                 coeffMatrix[currentIndex][currentIndex] = 1.0;
@@ -211,6 +240,11 @@ void PlateSolver::updateRightHandSide()
                 // ГУ второго рода - (Tгр - Tвн)/dx = 0
                 rightHandSide[currentIndex] = 0.0;
             }
+            else if (bc == BorderCondition::THIRD)
+            {
+                rightHandSide[currentIndex] = 0.0f;
+            }
+
             else if (bc == BorderCondition::NONE)
             {
                 // Внутренние узлы - T^k(i,j) / dt

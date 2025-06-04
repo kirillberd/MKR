@@ -13,7 +13,7 @@ void writePlateTemp(const Plate& plate, const string& filename) {
     }
     
     
-    file << fixed << setprecision(2);
+    file << fixed << setprecision(5);
     
     for (int i = plate.size() - 1; i >= 0; i--) {
         for (int j = 0; j < plate[i].size(); j++) {
